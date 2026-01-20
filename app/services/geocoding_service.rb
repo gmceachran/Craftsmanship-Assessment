@@ -14,7 +14,6 @@ class GeocodingService
     label = response["standard"] && response["standard"]["city"]
 
     return nil if lat.blank? || lon.blank? || lat.to_f == 0.0 || lon.to_f == 0.0
-
     return { lat: lat.to_f, lon: lon.to_f, label: label }
   end
 end
