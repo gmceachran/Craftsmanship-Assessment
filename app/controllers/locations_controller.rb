@@ -22,15 +22,21 @@ class LocationsController < ApplicationController
   # POST /locations or /locations.json
   def create
     @location = Location.new(location_params)
+    geo = GeocodingService.call(query: @location.query)
 
-    respond_to do |format|
-      if @location.save
-        format.html { redirect_to @location, notice: "Location was successfully created." }
-        format.json { render :show, status: :created, location: @location }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @location.errors, status: :unprocessable_entity }
-      end
+    if geo.nil?
+      @location.errors.add(:query, "could not be geocoded — try a more specific address (e.g., city + country)")
+      return render :new, status: :unprocessable_entity
+    end
+
+    @location.latitude = geo[:lat]
+    @location.longitude = geo[:lon]
+    @location.label = geo[:label]
+
+    if @location.save
+      redirect_to @location, notice: "Location was succesfully created."
+    else 
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -60,11 +66,11 @@ class LocationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_location
-      @location = Location.find(params.expect(:id))
+      @location = Location.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def location_params
-      params.expect(location: [ :query, :latitude, :longitude, :label ])
+      params.require(:location).permit(:query, :latitude, :longitude, :label)
     end
 end

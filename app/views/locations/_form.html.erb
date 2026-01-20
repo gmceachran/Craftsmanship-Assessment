@@ -1,4 +1,4 @@
-<%= form_with(model: location) do |form| %>
+<%= form_with(model: location, data: { turbo: false }) do |form| %>
   <% if location.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(location.errors.count, "error") %> prohibited this location from being saved:</h2>
@@ -10,25 +10,10 @@
       </ul>
     </div>
   <% end %>
-
+  
   <div>
     <%= form.label :query, style: "display: block" %>
     <%= form.text_field :query %>
-  </div>
-
-  <div>
-    <%= form.label :latitude, style: "display: block" %>
-    <%= form.text_field :latitude %>
-  </div>
-
-  <div>
-    <%= form.label :longitude, style: "display: block" %>
-    <%= form.text_field :longitude %>
-  </div>
-
-  <div>
-    <%= form.label :label, style: "display: block" %>
-    <%= form.text_field :label %>
   </div>
 
   <div>
