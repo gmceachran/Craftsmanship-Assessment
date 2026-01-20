@@ -8,6 +8,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/1 or /locations/1.json
   def show
+    @forecast = WeatherService.call(lat: @location.latitude, lon: @location.longitude)
   end
 
   # GET /locations/new

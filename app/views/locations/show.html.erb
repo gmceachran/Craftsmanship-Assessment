@@ -1,6 +1,23 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @location %>
+<h2><%= @location.label %>:</h2>
+<p>Temperatures in °C</p>
+<table>
+  <tr>
+    <th>Date</th>
+    <th>High</th>
+    <th>Low</th>
+  </tr>
+  <% if @forecast %>
+    <% @forecast.each do |day| %>
+      <tr>
+        <td><%= day[:date] %></td>
+        <td><%= day[:max] %></td>
+        <td><%= day[:min] %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
 
 <div>
   <%= link_to "Edit this location", edit_location_path(@location) %> |
