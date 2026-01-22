@@ -13,8 +13,8 @@ INSTRUCTIONS FOR USE:
     bin/rails server
 
   Open either of the provided links:
-  * http://127.0.0.1:3000
-  * http://[::1]:3000
+    http://127.0.0.1:3000
+    http://[::1]:3000
 
   and enter the location you would like to forcast. 
 
