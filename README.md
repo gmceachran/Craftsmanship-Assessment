@@ -28,7 +28,9 @@ TESTING:
 
   This project uses RSpec for testing.
   To run the test suite:
-  bundle exec rspec
-  The test suite includes a unit test demonstrating how to stub a third-party API (Open-Meteo) so tests do not make real HTTP requests.
+  
+    bundle exec rspec
+  
+  The test suite includes unit tests demonstrating how to stub third-party API calls for both geocoding (geocode.xyz) and weather data (Open-Meteo), ensuring tests do not make real HTTP     requests.
 
 Note: Forecast view shows daily max/min only (no hourly data).
