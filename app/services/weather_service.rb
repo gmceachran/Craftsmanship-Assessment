@@ -3,7 +3,7 @@ require 'json'
 
 class WeatherService
   def self.call(lat:, lon:)
-    uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{lat}&longitude=#{lon}&daily=temperature_2m_max,temperature_2m_min&timezone=auto")
+    uri = URI("https://api.open-meteo.com/v1/forecast?latitude=#{lat}&longitude=#{lon}&daily=temperature_2m_max,temperature_2m_min&timezone=auto&temperature_unit=fahrenheit")
     data = Net::HTTP.get(uri)
     response = JSON.parse(data)
 
