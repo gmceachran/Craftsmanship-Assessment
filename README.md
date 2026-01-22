@@ -18,4 +18,11 @@ INSTRUCTIONS FOR USE:
 
   and enter the location you would like to forcast. 
 
+TESTING:
+
+  This project uses RSpec for testing.
+  To run the test suite:
+  bundle exec rspec
+  The test suite includes a unit test demonstrating how to stub a third-party API (Open-Meteo) so tests do not make real HTTP requests.
+
 Note: Forecast view shows daily max/min only (no hourly data).
