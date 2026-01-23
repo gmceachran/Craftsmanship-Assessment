@@ -31,6 +31,6 @@ TESTING:
   
     bundle exec rspec
   
-  The test suite includes unit tests demonstrating how to stub third-party API calls for both geocoding (geocode.xyz) and weather data (Open-Meteo), ensuring tests do not make real HTTP     requests.
+  The test suite includes unit tests demonstrating how to stub third-party API calls for both geocoding (geocode.xyz) and weather data (Open-Meteo), ensuring tests do not make real HTTP requests.
 
 Note: Forecast view shows daily max/min only (no hourly data).

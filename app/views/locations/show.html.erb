@@ -1,21 +1,26 @@
 <p style="color: green"><%= notice %></p>
 
 <h2><%= @location.label %>:</h2>
+
+<% highs = @forecast.to_h { |d| [d[:date], d[:max]] } %>
+<% lows = @forecast.to_h { |d| [d[:date], d[:min]] } %>
+
+<%= line_chart [
+  { name: "High", data: highs },
+  { name: "Low", data: lows }
+], xtitle: "Date", ytitle: "°F" %>
+
 <p>Temperatures in °F</p>
 <table>
   <tr>
     <th>Date</th>
-    <th>High</th>
-    <th>Low</th>
+    <th>Low - High</th>
   </tr>
-  <% if @forecast %>
-    <% @forecast.each do |day| %>
-      <tr>
-        <td><%= day[:date] %></td>
-        <td><%= day[:max] %></td>
-        <td><%= day[:min] %></td>
-      </tr>
-    <% end %>
+  <% @forecast.each do |day| %>
+    <tr>
+      <td><%= Date.parse(day[:date]).strftime("%m/%d") %></td>
+      <td><%= day[:min].to_i %>° - <%= day[:max].to_i %>°</td>
+    </tr>
   <% end %>
 </table>
 
