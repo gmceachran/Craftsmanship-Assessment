@@ -25,19 +25,46 @@ class LocationsController < ApplicationController
     @location = Location.new(location_params)
     geo = GeocodingService.call(query: @location.query)
 
-    if geo.nil?
-      @location.errors.add(:query, "could not be geocoded — try a more specific address (e.g., city + country)")
-      return render :new, status: :unprocessable_entity
-    end
+    status =
+      if geo[:lat]
+        :ok 
+      elsif geo[:rate_limited] 
+        :rate_limited
+      elsif geo[:no_value]
+        :no_value
+      else 
+        :unknown
+      end
 
-    @location.latitude = geo[:lat]
-    @location.longitude = geo[:lon]
-    @location.label = geo[:label]
-
-    if @location.save
-      redirect_to @location, notice: "Location was succesfully created."
-    else 
-      render :new, status: :unprocessable_entity
+    case status
+      when :ok
+        @location.latitude = geo[:lat]
+        @location.longitude = geo[:lon]
+        @location.label = geo[:label]
+      
+        if @location.save
+          redirect_to @location, notice: "Location was succesfully created."
+        else 
+          render :new, status: :unprocessable_entity
+        end 
+      when :rate_limited
+        @location.errors.add(
+          :query, 
+          "Geocoding service is temporarily unavailable — please try again in a moment."
+          )
+        render :new, status: :unprocessable_entity
+      when :no_value
+        @location.errors.add(
+          :query, 
+          "could not be geocoded — try a more specific address (e.g., city + country)"
+          )
+        render :new, status: :unprocessable_entity
+      when :unknown
+        @location.errors.add(
+          :query, 
+          "Unexpected geocoding response — please try again."
+          )
+        render :new, status: :unprocessable_entity
     end
   end
 
@@ -75,3 +102,6 @@ class LocationsController < ApplicationController
       params.require(:location).permit(:query, :latitude, :longitude, :label)
     end
 end
+
+
+  

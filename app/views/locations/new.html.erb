@@ -1,11 +1,13 @@
-<% content_for :title, "New location" %>
+<turbo-frame id="modal">
+  <% content_for :title, "New location" %>
 
-<h1>New location</h1>
+  <h1>New location</h1>
 
-<%= render "form", location: @location %>
+  <%= render "form", location: @location %>
 
-<br>
+  <br>
 
-<div>
-  <%= link_to "Back to locations", locations_path %>
-</div>
+  <div>
+    <%= link_to "Back to locations", locations_path, data: { turbo_frame: "_top" } %>
+  </div>
+</turbo-frame>
