@@ -43,7 +43,7 @@ class LocationsController < ApplicationController
         @location.label = geo[:label]
       
         if @location.save
-          redirect_to @location, notice: "Location was succesfully created."
+          redirect_to locations_path, notice: "Location was succesfully created."
         else 
           render :new, status: :unprocessable_entity
         end 

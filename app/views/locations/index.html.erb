@@ -8,7 +8,7 @@
   <% @locations.each do |location| %>
     <%= render location %>
     <p>
-      <%= link_to "Show this location", location %>
+      <%= link_to "Show this location", location, data: { turbo_frame: "modal" } %>
     </p>
   <% end %>
 </div>
