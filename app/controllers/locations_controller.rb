@@ -43,7 +43,7 @@ class LocationsController < ApplicationController
         @location.label = geo[:label]
       
         if @location.save
-          redirect_to @location, notice: "Location was succesfully created."
+          redirect_to @location, notice: "Location was successfully created.", status: :see_other
         else 
           render :new, status: :unprocessable_entity
         end 
@@ -102,6 +102,3 @@ class LocationsController < ApplicationController
       params.require(:location).permit(:query, :latitude, :longitude, :label)
     end
 end
-
-
-  
